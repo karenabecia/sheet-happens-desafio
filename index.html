@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sheet Happens Desafio</title>
+  <meta name="description" content="Participe do desafio Sheet Happens e desenvolva habilidades práticas com planilhas de forma leve, direta e aplicada." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f7f8fc;
+      --surface: #ffffff;
+      --surface-alt: #f1f4fb;
+      --text: #101828;
+      --muted: #475467;
+      --line: #d0d5dd;
+      --primary: #1d4ed8;
+      --primary-dark: #153eaa;
+      --accent: #f59e0b;
+      --success: #16a34a;
+      --radius: 20px;
+      --radius-sm: 12px;
+      --shadow: 0 10px 30px rgba(16, 24, 40, 0.08);
+      --container: 1120px;
+
+      --fs-hero: clamp(2rem, 5vw, 4rem);
+      --fs-h1: clamp(1.9rem, 4vw, 3.2rem);
+      --fs-h2: clamp(1.5rem, 3vw, 2.3rem);
+      --fs-h3: 1.125rem;
+      --fs-body: 1rem;
+      --fs-small: 0.9375rem;
+
+      --space-1: 0.5rem;
+      --space-2: 0.75rem;
+      --space-3: 1rem;
+      --space-4: 1.25rem;
+      --space-5: 1.5rem;
+      --space-6: 2rem;
+      --space-7: 3rem;
+      --space-8: 4rem;
+      --space-9: 5rem;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      font-size: var(--fs-body);
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(100% - 2rem, var(--container));
+      margin-inline: auto;
+    }
+
+    .section {
+      padding: var(--space-8) 0;
+    }
+
+    .section-sm {
+      padding: var(--space-7) 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(29, 78, 216, 0.08);
+      color: var(--primary);
+      border: 1px solid rgba(29, 78, 216, 0.12);
+      border-radius: 999px;
+      padding: 0.5rem 0.875rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(247, 248, 252, 0.9);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(208, 213, 221, 0.8);
+    }
+
+    .header-wrap {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--text);
+    }
+
+    .brand-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      font-size: var(--fs-small);
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .nav a:hover {
+      color: var(--primary);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.625rem;
+      min-height: 50px;
+      padding: 0.875rem 1.25rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      font-size: 0.98rem;
+      transition: 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: var(--shadow);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--text);
+      border-color: var(--line);
+    }
+
+    .hero {
+      padding: var(--space-8) 0 var(--space-7);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .hero-copy h1 {
+      font-size: var(--fs-hero);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      margin-bottom: 1rem;
+    }
+
+    .hero-copy p {
+      color: var(--muted);
+      font-size: 1.06rem;
+      max-width: 58ch;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 0.875rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-points {
+      display: grid;
+      gap: 0.75rem;
+      color: var(--text);
+      font-size: var(--fs-small);
+    }
+
+    .hero-points span {
+      display: flex;
+      align-items: center;
+      gap: 0.625rem;
+    }
+
+    .hero-card {
+      background: linear-gradient(180deg, #ffffff 0%, #eef4ff 100%);
+      border: 1px solid rgba(29, 78, 216, 0.12);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card .mockup {
+      border-radius: 18px;
+      background: #0f172a;
+      padding: 1rem;
+      overflow: hidden;
+    }
+
+    .mockup-top {
+      display: flex;
+      gap: 0.4rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #94a3b8;
+    }
+
+    .dashboard-preview {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .preview-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+    }
+
+    .preview-box {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 14px;
+      min-height: 88px;
+      padding: 0.75rem;
+    }
+
+    .preview-box.large {
+      min-height: 170px;
+      grid-column: span 2;
+    }
+
+    .preview-line,
+    .preview-bar {
+      border-radius: 999px;
+      background: linear-gradient(90deg, #60a5fa, #fbbf24);
+      opacity: 0.95;
+    }
+
+    .preview-line {
+      height: 10px;
+      margin-bottom: 0.5rem;
+    }
+
+    .preview-bar {
+      height: 14px;
+      margin-top: 0.6rem;
+    }
+
+    .section-title {
+      max-width: 760px;
+      margin-bottom: 2rem;
+    }
+
+    .section-title h2 {
+      font-size: var(--fs-h2);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.85rem;
+    }
+
+    .section-title p {
+      color: var(--muted);
+    }
+
+    .grid-3,
+    .grid-4,
+    .grid-2 {
+      display: grid;
+      gap: 1.25rem;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid rgba(208, 213, 221, 0.8);
+      border-radius: var(--radius);
+      padding: 1.4rem;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      font-size: var(--fs-h3);
+      margin-bottom: 0.6rem;
+      line-height: 1.2;
+    }
+
+    .card p,
+    .card li {
+      color: var(--muted);
+      font-size: var(--fs-small);
+    }
+
+    .icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: var(--surface-alt);
+      color: var(--primary);
+      display: grid;
+      place-items: center;
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .list {
+      display: grid;
+      gap: 0.75rem;
+      padding-left: 1rem;
+    }
+
+    .highlight {
+      background: linear-gradient(180deg, rgba(29, 78, 216, 0.06) 0%, rgba(245, 158, 11, 0.07) 100%);
+      border: 1px solid rgba(29, 78, 216, 0.12);
+    }
+
+    .numbers {
+      background: #0f172a;
+      color: white;
+    }
+
+    .numbers .card p {
+      color: rgba(255,255,255,0.78);
+    }
+
+    .stat {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .faq {
+      display: grid;
+      gap: 1rem;
+    }
+
+    details {
+      background: white;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      padding: 1rem 1.25rem;
+      box-shadow: var(--shadow);
+    }
+
+    summary {
+      cursor: pointer;
+      list-style: none;
+      font-weight: 700;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details p {
+      color: var(--muted);
+      margin-top: 0.75rem;
+    }
+
+    .cta {
+      background: linear-gradient(135deg, #0f172a 0%, #1d4ed8 100%);
+      color: white;
+      border-radius: 28px;
+      padding: clamp(1.75rem, 4vw, 3rem);
+      box-shadow: var(--shadow);
+    }
+
+    .cta p {
+      color: rgba(255,255,255,0.82);
+      max-width: 56ch;
+      margin: 0.75rem 0 1.25rem;
+    }
+
+    .site-footer {
+      padding: 2rem 0 3rem;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .footer-wrap {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--line);
+      padding-top: 1.25rem;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .grid-2,
+      .grid-3,
+      .grid-4,
+      .preview-row {
+        grid-template-columns: 1fr;
+      }
+
+      .preview-box.large {
+        grid-column: auto;
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 2.5rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      :root {
+        --space-7: 2.25rem;
+        --space-8: 3rem;
+      }
+
+      .container {
+        width: min(100% - 1.25rem, var(--container));
+      }
+
+      .header-wrap {
+        min-height: 70px;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .card,
+      .hero-card,
+      .cta,
+      details {
+        border-radius: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-wrap">
+      <a href="#top" class="brand" aria-label="Página inicial Sheet Happens">
+        <span class="brand-badge">SH</span>
+        <span>Sheet Happens Desafio</span>
+      </a>
+
+      <nav class="nav" aria-label="Navegação principal">
+        <a href="#sobre">Sobre</a>
+        <a href="#beneficios">Benefícios</a>
+        <a href="#programa">Programa</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero" style="background:#4f8a5b; color:white;">
+      <div class="container" style="display:grid; gap:2rem;">
+        <div style="max-width:900px;">
+          <p style="text-transform:uppercase; letter-spacing:1px; opacity:.9; margin-bottom:.75rem; font-weight:600;">desafio exclusivo para alunos</p>
+          <h1 style="font-size:clamp(2.5rem,6vw,4.5rem); line-height:1.05; color:#f4d98a; font-weight:800;">SHEET HAPPENS</h1>
+          <p style="margin-top:1rem; font-size:1.1rem; max-width:700px; opacity:.95;">
+            Desafio prático de Excel + inglês<br>
+            Pare de travar na planilha e na hora de falar em inglês.<br>
+            Desenvolva as duas habilidades que mais abrem portas no mercado.
+          </p>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap;">
+          <div style="display:flex; flex-direction:column; align-items:center;">
+            <img src="https://via.placeholder.com/160" style="border:6px solid orange; border-radius:8px;" />
+            <p style="margin-top:.5rem; font-weight:600;">Karen Abecia<br><span style="font-weight:400; opacity:.8;">Excel</span></p>
+          </div>
+
+          <div style="font-size:2rem; font-weight:800;">+</div>
+
+          <div style="display:flex; flex-direction:column; align-items:center;">
+            <img src="https://via.placeholder.com/160" style="border:6px solid orange; border-radius:8px;" />
+            <p style="margin-top:.5rem; font-weight:600;">Erika Belmonte<br><span style="font-weight:400; opacity:.8;">Inglês</span></p>
+          </div>
+        </div>
+
+        <p style="margin-top:1rem; font-size:1.2rem;">case: <strong style="font-size:1.4rem;">Global Motors INC.</strong></p>
+      </div>
+    </section>
+
+    <section id="cenario" class="section-sm" style="background:#eef2f3; color:#1f5f3f;">
+      <div class="container" style="max-width:900px;">
+
+        <div style="display:flex; flex-direction:column; gap:1rem;">
+
+          <h3 style="font-size:1.6rem; color:#1f5f3f; margin:0;">Cenário</h3>
+
+          <p>
+            Você acabou de ser selecionado para participar de um projeto estratégico dentro da Global Motors Inc., uma das maiores montadoras do mundo.
+          </p>
+
+          <p>
+            Nos últimos anos, a empresa cresceu rapidamente... mas agora enfrenta um problema sério: Os resultados estão confusos.
+          </p>
+
+          <ul style="padding-left:1.2rem; line-height:1.7;">
+            <li>Cada região apresenta uma comunicação diferente.</li>
+            <li>A diretoria não consegue tomar decisões com segurança.</li>
+          </ul>
+
+          <p>
+            A empresa está passando por uma transformação global e está unificando processos em todas as filiais do mundo.
+          </p>
+
+          <h3 style="font-size:1.6rem; color:#1f5f3f; margin-top:2rem;">Desafio</h3>
+
+          <p>
+            A diretoria convocou uma reunião global que acontecerá no início do próximo mês. Nessa reunião, decisões críticas serão tomadas.
+            Pra auxiliar essas decisões, você precisa realizar o desafio, que deverá ser entregue de acordo com o <strong>cronograma abaixo:</strong>
+          </p>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="como-funciona" class="section-sm" style="background:#3f7a4e; color:white;">
+      <div class="container" style="display:grid; grid-template-columns:1.2fr 0.8fr; gap:2rem; align-items:center;">
+
+        <div style="max-width:700px;">
+          <h3 style="color:#f4d98a; font-size:1.4rem; margin-bottom:.5rem;">Como funciona</h3>
+
+          <p style="margin-bottom:1rem;">
+            Sua jornada em 6 etapas<br>
+            O desafio intercala atividades de Excel e inglês.<br>
+            Cada etapa prepara você para a próxima, até chegar na apresentação final.
+          </p>
+
+          <p style="color:#f4d98a; font-weight:600; margin-bottom:.5rem;">você deve:</p>
+
+          <ul style="padding-left:1.2rem; line-height:1.8;">
+            <li>baixar o material</li>
+            <li>fazer a atividade</li>
+            <li>enviar a atividade no formulário</li>
+            <li>concorrer aos prêmios</li>
+          </ul>
+        </div>
+
+        <div style="background:#3f7a4e; border-radius:16px; padding:1.5rem; display:flex; align-items:center; justify-content:space-between; gap:1rem;">
+          <div>
+            <p style="font-weight:700;">Perdeu a live de abertura?</p>
+            <a href="#" style="text-decoration:underline; font-weight:600;">Clique aqui</a>
+          </div>
+
+          <div style="font-size:2rem;">🎬</div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="programa" class="section-sm" style="background:#5a9466; color:white; padding-top:1rem;">
+      <div class="container" style="max-width:980px;">
+        <div style="position:relative; width:min(100%, 760px); margin:0 auto;">
+          <img src="mapa.png" alt="Cronograma do desafio Sheet Happens" style="width:100%; height:auto; display:block;" />
+
+          <a href="#" style="position:absolute; top:17.4%; right:6.8%; width:22%; height:4.8%; border-radius:999px;" aria-label="Baixar etapa 1"></a>
+          <a href="#" style="position:absolute; top:35.1%; left:7.1%; width:22%; height:4.8%; border-radius:999px;" aria-label="Baixar etapa 2"></a>
+          <a href="#" style="position:absolute; top:47.6%; right:6.8%; width:22%; height:4.8%; border-radius:999px;" aria-label="Baixar etapa 3"></a>
+          <a href="#" style="position:absolute; top:60.1%; right:6.8%; width:22%; height:4.8%; border-radius:999px;" aria-label="Baixar etapa 4"></a>
+          <a href="#" style="position:absolute; top:63.3%; left:7.1%; width:22%; height:4.8%; border-radius:999px;" aria-label="Baixar etapa 5"></a>
+          <a href="#" style="position:absolute; top:81.2%; left:28.9%; width:22%; height:4.8%; border-radius:999px;" aria-label="Baixar etapa 6"></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-sm" style="background:#eef2f3; color:#1f5f3f;">
+      <div class="container" style="display:flex; justify-content:center;">
+        <div style="background:white; border-radius:18px; padding:1.5rem; max-width:520px; text-align:center; box-shadow:var(--shadow);">
+          <h3 style="margin-bottom:.5rem; color:#1f5f3f;">Como entregar os desafios</h3>
+          <p style="font-size:.95rem; color:#475467; margin-bottom:1rem;">
+            Todas as etapas deverão ser entregues no formulário oficial, junto com os dados solicitados e os arquivos.
+          </p>
+          <a href="#" style="display:block; background:#ff7a00; color:white; font-weight:800; padding:.9rem 1rem; border-radius:8px; border:2px solid #000;">
+            LINK DO FORMULÁRIO PRA ENTREGA DOS DESAFIOS
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-sm" style="background:#eef2f3; color:#1f5f3f;">
+      <div class="container" style="max-width:900px; display:flex; flex-direction:column; gap:1.5rem;">
+
+        <div style="background:white; padding:1.5rem; border-radius:16px; text-align:center; box-shadow:var(--shadow);">
+          <div style="font-size:2rem; font-weight:800; color:#ff7a00;">13.05</div>
+          <h3 style="margin-top:.5rem;">LIVE DE ENCERRAMENTO E PREMIAÇÃO</h3>
+          <p style="margin-top:.75rem;">
+            <strong>Plataforma:</strong> Microsoft Teams<br>
+            <strong>Horário:</strong> 19h30 (7:30pm)<br>
+            <strong>Link será enviado pelo grupo de alunos</strong>
+          </p>
+        </div>
+
+        <h2 style="text-align:center; font-size:1.8rem; color:#1f5f3f;">🧭 ORIENTAÇÕES</h2>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+          <div style="background:white; padding:1rem; border-radius:12px; color:#1f5f3f; border:1px solid #d0d5dd;">
+            <h4 style="margin-bottom:.5rem;">Siga a jornada</h4>
+            <p style="font-size:.9rem;">
+              O desafio é dividido em 6 etapas, intercalando:<br>
+              • Excel (análise e construção)<br>
+              • Inglês (comunicação e apresentação)<br>
+              Cada etapa prepara você para a próxima.
+            </p>
+          </div>
+
+          <div style="background:white; padding:1rem; border-radius:12px; color:#1f5f3f; border:1px solid #d0d5dd;">
+            <h4 style="margin-bottom:.5rem;">Respeite as datas</h4>
+            <p style="font-size:.9rem;">
+              • Cada entrega tem um prazo específico<br>
+              • Você pode fazer depois, mas quanto mais acumular, mais difícil fica de concluir.
+            </p>
+          </div>
+        </div>
+
+        <div style="background:white; padding:1.5rem; border-radius:16px; text-align:center; color:#1f5f3f; border:1px solid #d0d5dd;">
+          <h3>Participe do grupo de alunos</h3>
+          <p style="font-size:.9rem; margin:.5rem 0 1rem;">
+            É necessário permanecer no grupo silencioso para receber materiais de apoio, orientações e avisos sobre as etapas.
+          </p>
+          <a href="#" style="display:inline-block; background:white; padding:.7rem 1.2rem; border-radius:999px; font-weight:700; border:2px solid #0f172a;">
+            GRUPO DE ALUNOS
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="section-sm" style="background:#5a9466; color:white;">
+      <div class="container" style="max-width:1000px;">
+
+        <h2 style="text-align:center; margin-bottom:2rem;">Conheça as professoras</h2>
+
+        <div style="display:grid; grid-template-columns:1fr; gap:2.5rem; max-width:520px; margin:0 auto;">
+
+          <div style="text-align:center;">
+            <img src="https://via.placeholder.com/220" style="margin:0 auto; border-radius:8px; border:6px solid white;" />
+            <p style="margin-top:1rem; font-size:.9rem; line-height:1.5;">
+              Oi, eu sou a <strong>Erika Belmonte</strong>. Sou brasileira, moro nos Estados Unidos desde 2015 e ensino inglês há mais de 25 anos.
+              Criei o método "Inglês da Vida Real" porque aprendi que a melhor forma de aprender inglês é vivendo ele.
+              Hoje tenho uma comunidade de mais de 500 mil pessoas e já ajudei milhares de alunos a destravarem o inglês.
+            </p>
+          </div>
+
+          <div style="text-align:center;">
+            <img src="https://via.placeholder.com/220" style="margin:0 auto; border-radius:8px; border:6px solid white;" />
+            <p style="margin-top:1rem; font-size:.9rem; line-height:1.5;">
+              Oi, eu sou a <strong>Karen Abecia</strong>. Sou professora de Excel há mais de 23 anos e especialista em dashboards.
+              Ensino pessoas comuns a se tornarem profissionais que se destacam no mercado.
+              Já impactei milhares de alunos e ajudo profissionais a conquistarem o famoso <strong>efeito UAU</strong>.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    
+
+    <section id="faq" class="section-sm" style="background:#457a55;">
+      <div class="container" style="max-width:900px;">
+        <div style="background:white; border-radius:16px; padding:1.75rem; box-shadow:var(--shadow);">
+          <p style="font-size:.8rem; color:#667085; font-weight:700; letter-spacing:.08em; text-transform:uppercase;">DÚVIDAS</p>
+          <h2 style="margin:.25rem 0 1.25rem;">Perguntas frequentes</h2>
+
+          <div style="display:flex; flex-direction:column;">
+
+            <div style="padding:1rem 0; border-top:1px solid #e4e7ec;">
+              <p style="font-weight:700;">Preciso saber Excel avançado para participar?</p>
+              <p style="color:#475467; margin-top:.5rem;">O desafio é progressivo. Você vai evoluindo a cada etapa. Conhecimento básico de Excel é suficiente para começar.</p>
+            </div>
+
+            <div style="padding:1rem 0; border-top:1px solid #e4e7ec;">
+              <p style="font-weight:700;">Meu inglês é básico, posso participar?</p>
+              <p style="color:#475467; margin-top:.5rem;">Sim! As atividades de inglês são pensadas para diferentes níveis. O importante é a evolução, não a fluência.</p>
+            </div>
+
+            <div style="padding:1rem 0; border-top:1px solid #e4e7ec;">
+              <p style="font-weight:700;">Posso usar Google Sheets?</p>
+              <p style="color:#475467; margin-top:.5rem;">A recomendação é usar o Excel, mas desde que sua entrega esteja no formato correto (.xlsx), ferramentas equivalentes são aceitas.</p>
+            </div>
+
+            <div style="padding:1rem 0; border-top:1px solid #e4e7ec;">
+              <p style="font-weight:700;">A live de encerramento vai ser gravada?</p>
+              <p style="color:#475467; margin-top:.5rem;">Detalhes sobre a gravação da live serão informados mais perto da data. Recomendamos participar ao vivo.</p>
+            </div>
+
+            <div style="padding:1rem 0; border-top:1px solid #e4e7ec; border-bottom:1px solid #e4e7ec;">
+              <p style="font-weight:700;">Como funciona a avaliação?</p>
+              <p style="color:#475467; margin-top:.5rem;">Os participantes serão avaliados em qualidade da análise, clareza na apresentação, evolução no inglês e aplicação estratégica. Karen e Erika avaliam juntas.</p>
+            </div>
+
+          </div>
+        </div>
+
+        <p style="text-align:center; color:white; opacity:.8; font-size:.85rem; margin-top:1rem;">Uma parceria Escola Karen Abecia × Erika Belmonte<br>Sheet Happens © 2026</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-wrap">
+      <span>© 2026 Escola Karen Abecia. Todos os direitos reservados.</span>
+      <span>Feito para GitHub Pages • HTML puro • responsivo</span>
+    </div>
+  </footer>
+</body>
+</html>
